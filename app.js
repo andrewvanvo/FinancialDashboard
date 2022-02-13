@@ -1,33 +1,17 @@
-'use strict'
+const express = require('express')
+const { engine } = require ('express-handlebars');
 
-
-//Setting variables
-const express = require("express");
-const axios = require('axios');
-var exphbs = require('express-handlebars');
 const app = express();
-const PORT = 3000 //process.env.PORT || 80;
 
-//HBS templating view engine
-app.engine('handlebars', exphbs.engine({
-    defaultLayout: null
-  }));
-  app.set('view engine', 'handlebars');
-  
+const PORT = process.env.PORT || 3000
 
-//HBS routing
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set("views", "./views");
+
 app.get('/', (req, res) => {
     res.render('home');
 });
-
-//JSON parsing for http requests
-app.use(express.json());
-app.use(express.urlencoded({
-    extended: true
-}));
-
-//Base static
-app.use('/', express.static('public'));
 
 
 app.listen(PORT, () => {
