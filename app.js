@@ -1,8 +1,9 @@
 'use strict'
 
 const express = require("express");
+const axios = require('axios');
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = 3000 //process.env.PORT || 80;
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -10,6 +11,8 @@ app.use(express.urlencoded({
 }));
 
 app.use('/', express.static('public'));
+
+
 
 
 
