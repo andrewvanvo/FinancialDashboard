@@ -88,7 +88,6 @@ app.get('/', (req, res) => {
     });
 });
 
-
 app.get('/features.html', (req, res) => {
     res.render('features');
 });
@@ -105,6 +104,13 @@ app.post('/result.html', (req, res) => {
         });                 //passing parsed symbol into function params for searchResult 
     }, req.body.symbolSearch );
 });
+
+app.post('/news.html', (req, res) => {
+
+        res.render('news', {
+            newsDisplay: "Company Ticker Here"
+        });                 //passing parsed symbol into function params for searchResult 
+    });
 
 
 
