@@ -20,30 +20,34 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-//DASH TICKER #1 (60m interval TO AVOIDE RATE LIMITING) /////////CHANGE///////////
-var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=EPNJK585JY2Y1RPW';
+//DASH TICKER #1
+var ticker1 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=SPY&apikey=EPNJK585JY2Y1RPW';
 
-request.get({
-    url: url,
-    json: true,
-    headers: {'User-Agent': 'request'}
-  }, (err, res, data) => {
-    if (err) {
-      console.log('Error:', err);
-    } else if (res.statusCode !== 200) {
-      console.log('Status:', res.statusCode);
-    } else {
-      // data is successfully parsed as a JSON object:
-      console.log(data);
-    }
-});
-
-
+function dashticker(){
+    request.get({
+        url: ticker1,
+        json: true,
+        headers: {'User-Agent': 'request'}
+      }, (err, res, data) => {
+        if (err) {
+          console.log('Error:', err);
+        } else if (res.statusCode !== 200) {
+          console.log('Status:', res.statusCode);
+        } else {
+          // data is successfully parsed as a JSON object:
+          console.log(data);
+          return data;
+        }
+    });
+}
 
 
 //ROUTES
 app.get('/', (req, res) => {
-    res.render('home');
+    const apiData = dashticker();
+    res.render('home',{
+        dashDisplay: apiData
+    });
 });
 
 app.get('/features.html', (req, res) => {
