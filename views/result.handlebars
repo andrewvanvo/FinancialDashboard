@@ -1,10 +1,19 @@
 <html>
     <p>Search Results HBS Page</p>
+    <br>
+    <br>
 
-    {{searchDisplay}}
+    <div class = 'container'>
+        <div class = 'row'>
+            <div class = 'col'>
+                {{#each searchDisplay}}
+                    {{#each this}}                       <!--drills one layer deeper into json dict-->
+                    {{@key}}: {{this}}                 <!--iterate through each key (@key) value(this) pair, can also use @index-->
+                    <br>               
+                    {{/each}}   
+                {{/each}}
+            </div>
+        </div>
 
-
-
-
-
+    
 </html>
