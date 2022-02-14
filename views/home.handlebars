@@ -1,9 +1,10 @@
 <html>
     <p>Main HBS Page</p>
 
-    <p>{{dashDisplay}}</p>
     {{#each dashDisplay}}
-        {{@key}}:{{this}}           <!--iterate through each key (@key) value(this) pair, can also use @index-->
+        {{#each this}}                       <!--drills one layer deeper into json dict-->
+            {{@key}}:{{this}}               <!--iterate through each key (@key) value(this) pair, can also use @index-->
+        {{/each}}   
     {{/each}}
 </html>
 
