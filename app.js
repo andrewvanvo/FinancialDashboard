@@ -16,6 +16,14 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+app.get('/features.html', (req, res) => {
+    res.render('features');
+});
+
+app.get('/help.html', (req, res) => {
+    res.render('help');
+});
+
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 
