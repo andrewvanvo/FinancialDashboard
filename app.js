@@ -26,7 +26,10 @@ app.get('/help.html', (req, res) => {
     res.render('help');
 });
 
-
+//search box POST route INCOMPLETE. NEEDS API
+app.post('/result.html'),(req,res) =>{
+    res.render('result');
+}
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
