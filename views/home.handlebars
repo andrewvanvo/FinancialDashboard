@@ -1,10 +1,42 @@
 <html>
     <p>Main HBS Page</p>
+    <br>
 
-    {{#each dashDisplay}}
-        {{#each this}}                       <!--drills one layer deeper into json dict-->
-            {{@key}}:{{this}}               <!--iterate through each key (@key) value(this) pair, can also use @index-->
-        {{/each}}   
-    {{/each}}
+    <div class = 'container'>
+        <div class = 'row'>
+            <div class = 'col'>
+                {{#each dashDisplay}}
+                    {{#each this}}                       <!--drills one layer deeper into json dict-->
+                    {{@key}}: {{this}}                 <!--iterate through each key (@key) value(this) pair, can also use @index-->
+                    <br>               
+                    {{/each}}   
+                {{/each}}
+            </div>
+            <div class = 'col'>
+                {{#each dashDisplay}}
+                    {{#each this}}                       
+                    {{@key}}: {{this}}                 
+                    <br>               
+                    {{/each}}   
+                {{/each}}
+            </div>
+            <div class = 'col'>
+                {{#each dashDisplay}}
+                    {{#each this}}                      
+                    {{@key}}: {{this}}                 
+                    <br>               
+                    {{/each}}   
+                {{/each}}
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+   
+
+    
 </html>
 
