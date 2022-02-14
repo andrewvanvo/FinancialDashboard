@@ -23,7 +23,7 @@ app.use(express.urlencoded({
 //DASH TICKER #1
 var ticker1 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=SPY&apikey=EPNJK585JY2Y1RPW';
 
-function dashticker(asyncCompleted){
+function dashticker(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in / GET route
     request.get({
         url: ticker1,
         json: true,
@@ -36,7 +36,7 @@ function dashticker(asyncCompleted){
         } else {
           // data is successfully parsed as a JSON object:
           console.log(data);
-          asyncCompleted(data);
+          return asyncCompleted(data);
         }
     });
 }
@@ -44,11 +44,13 @@ function dashticker(asyncCompleted){
 
 //ROUTES
 app.get('/', (req, res) => {
-    const apiData = dashticker();
-    res.render('home',{
-        dashDisplay: apiData
+    dashticker(function(apiCall){ //callback function apiCall
+        res.render('home', {
+            dashDisplay: apiCall
+        });
     });
 });
+
 
 app.get('/features.html', (req, res) => {
     res.render('features');
