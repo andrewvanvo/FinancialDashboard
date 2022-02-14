@@ -81,9 +81,10 @@ app.get('/help.html', (req, res) => {
 
 //search box POST route INCOMPLETE. NEEDS API
 app.post('/result.html', (req, res) => {
+        const parsed = req.body.symbolSearch                  //parsing symbol input on searchbox
         res.render('result', {
-            searchDisplay: "testing POST",
-
+            //searchDisplay: "testing POST",
+            searchDisplay: parsed
     });
 });
 
