@@ -80,15 +80,15 @@ app.get('/help.html', (req, res) => {
 });
 
 //search box POST route INCOMPLETE. NEEDS API
-app.post('/result', (req, res) => {
-    searchResult(function(apiCall){ //callback function named apiCall
-        parsedData = req.data.symbolSearch
+app.post('/result.html', (req, res) => {
         res.render('result', {
-            //: apiCall,
-            parsed: parsedData
-        });
+            searchDisplay: "testing POST",
+
     });
 });
+
+
+
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 
