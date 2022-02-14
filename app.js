@@ -3,6 +3,8 @@
 const express = require('express')
 const { engine } = require ('express-handlebars');
 const path = require('path')
+const axios = require('axios');
+const { response } = require('express');
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.get('/help.html', (req, res) => {
     res.render('help');
 });
 
+
+
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -31,14 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.urlencoded({
 //    extended: true
 //}));
-//
-//
-
-//
-//
-//
-
-//
 
 
 
