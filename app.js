@@ -23,7 +23,7 @@ app.use(express.urlencoded({
 //DASH TICKER #1
 var ticker1 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=SPY&apikey=EPNJK585JY2Y1RPW';
 
-function dashticker(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in / GET route
+function dashticker(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in '/' GET route
     request.get({
         url: ticker1,
         json: true,
@@ -41,6 +41,25 @@ function dashticker(asyncCompleted){ //asycnCompleted is the passed callback fnu
     });
 }
 
+//SEARCH RESULT
+var symbol = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=EPNJK585JY2Y1RPW'; //hardcoded for MVP, make dynamic later
+function searchResult(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in  '/result' POST route
+    request.get({
+        url: symbol,
+        json: true,
+        headers: {'User-Agent': 'request'}
+      }, (err, res, data) => {
+        if (err) {
+          console.log('Error:', err);
+        } else if (res.statusCode !== 200) {
+          console.log('Status:', res.statusCode);
+        } else {
+          // data is successfully parsed as a JSON object:
+          console.log(data);
+          return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
+        }
+    });
+}
 
 //ROUTES
 app.get('/', (req, res) => {
@@ -61,10 +80,13 @@ app.get('/help.html', (req, res) => {
 });
 
 //search box POST route INCOMPLETE. NEEDS API
-app.post('/result.html'),(req,res) =>{
-    res.render('result');
-}
-
+app.post('/result', (req, res) => {
+    searchResult(function(apiCall){ //callback function named apiCall
+        res.render('result', {
+            resultDisplay: apiCall
+        });
+    });
+});
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 

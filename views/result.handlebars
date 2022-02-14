@@ -1,5 +1,17 @@
 <html>
     <p>Search Results HBS Page</p>
 
-    <div id = 'searchResponse'></div>
+    <div id = 'searchResponse'>
+        {{#each resultDisplay}}
+            {{#each this}}                      
+                {{@key}}: {{this}}                 
+                <br>               
+            {{/each}}   
+        {{/each}}
+    </div>
+
+
+
+
+
 </html>
