@@ -42,24 +42,24 @@ function dashticker(asyncCompleted){ //asycnCompleted is the passed callback fnu
 }
 
 //SEARCH RESULT
-//var symbol = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=EPNJK585JY2Y1RPW'; //hardcoded for MVP, make dynamic later
-//function searchResult(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in  '/result' POST route
-//    request.get({
-//        url: symbol,
-//        json: true,
-//        headers: {'User-Agent': 'request'}
-//      }, (err, res, data) => {
-//        if (err) {
-//          console.log('Error:', err);
-//        } else if (res.statusCode !== 200) {
-//          console.log('Status:', res.statusCode);
-//        } else {
-//          // data is successfully parsed as a JSON object:
-//          console.log(data);
-//          return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
-//        }
-//    });
-//}
+//Refactored// var symbol = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=EPNJK585JY2Y1RPW'; //hardcoded for MVP, make dynamic later
+function searchResult(asyncCompleted,symbolInputted){ 
+    request.get({
+        url: 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol='+ symbolInputted +'&apikey=EPNJK585JY2Y1RPW', //passing inputted symbol from search box
+        json: true,
+        headers: {'User-Agent': 'request'}
+      }, (err, res, data) => {
+        if (err) {
+          console.log('Error:', err);
+        } else if (res.statusCode !== 200) {
+          console.log('Status:', res.statusCode);
+        } else {
+          // data is successfully parsed as a JSON object:
+          console.log(data);
+          return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
+        }
+    });
+}
 
 //ROUTES
 app.get('/', (req, res) => {
