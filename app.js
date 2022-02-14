@@ -3,8 +3,8 @@
 const express = require('express')
 const { engine } = require ('express-handlebars');
 const path = require('path')
-const axios = require('axios');
 const { response } = require('express');
+const request = require('request')
 
 const app = express();
 
@@ -14,6 +14,34 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set("views", "./views");
 
+//parsing JSON middleware
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+
+//DASH TICKER #1 (60m interval TO AVOIDE RATE LIMITING) /////////CHANGE///////////
+var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=EPNJK585JY2Y1RPW';
+
+request.get({
+    url: url,
+    json: true,
+    headers: {'User-Agent': 'request'}
+  }, (err, res, data) => {
+    if (err) {
+      console.log('Error:', err);
+    } else if (res.statusCode !== 200) {
+      console.log('Status:', res.statusCode);
+    } else {
+      // data is successfully parsed as a JSON object:
+      console.log(data);
+    }
+});
+
+
+
+
+//ROUTES
 app.get('/', (req, res) => {
     res.render('home');
 });
@@ -34,10 +62,7 @@ app.post('/result.html'),(req,res) =>{
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use(express.json());
-//app.use(express.urlencoded({
-//    extended: true
-//}));
+
 
 
 
