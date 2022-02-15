@@ -60,7 +60,7 @@ function searchResult(asyncCompleted,symbolInputted){
         }
     });
 }
-//SEARCH RESULT COMPANY DETAILS
+//SEARCH RESULT COMPANY DETAILS IN PROGRESS
 function searchDetail(asyncCompleted,symbolInputted){ 
     request.get({
         url: 'https://www.alphavantage.co/query?function=OVERVIEW&symbol='+ symbolInputted +'&apikey=EPNJK585JY2Y1RPW', //passing inputted symbol from search box
@@ -107,9 +107,7 @@ app.post('/result.html', (req, res) => {
 
 app.post('/news.html', (req, res) => {
 
-        res.render('news', {
-            newsDisplay: "Company Ticker Here"
-        });                 //passing parsed symbol into function params for searchResult 
+        res.render('news') 
     });
 
 
