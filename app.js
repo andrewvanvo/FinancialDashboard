@@ -60,7 +60,7 @@ function searchResult(asyncCompleted,symbolInputted){
         }
     });
 }
-//SEARCH RESULT COMPANY DETAILS IN PROGRESS
+//SEARCH RESULT COMPANY DETAILS ///////////IN PROGRESS/////////////
 function searchDetail(asyncCompleted,symbolInputted){ 
     request.get({
         url: 'https://www.alphavantage.co/query?function=OVERVIEW&symbol='+ symbolInputted +'&apikey=EPNJK585JY2Y1RPW', //passing inputted symbol from search box
@@ -96,8 +96,9 @@ app.get('/help.html', (req, res) => {
     res.render('help');
 });
 
-//search box POST route INCOMPLETE. NEEDS API
+//search box POST route 
 app.post('/result.html', (req, res) => {
+    console.log(req.body)
     searchResult(function(apiCall){ //callback function named apiCall
         res.render('result', {
             searchDisplay: apiCall
@@ -105,6 +106,7 @@ app.post('/result.html', (req, res) => {
     }, req.body.symbolSearch );
 });
 
+//Microservice integration needed ////////IN PROGRESS//////////
 app.post('/news.html', (req, res) => {
 
         res.render('news') 
@@ -114,8 +116,6 @@ app.post('/news.html', (req, res) => {
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 
 
