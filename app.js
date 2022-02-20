@@ -127,11 +127,14 @@ app.post('/result.html', (req, res) => {
 
 //News Microservice integration needed ////////IN PROGRESS//////////
 app.get('/news.html', (req, res) => {
-  console.log("Query is " + req.query.newsSearch)
-  
-  searchNews(function(apiCall){ //callback function named apiCall
+ 
+  searchNews(function(newsApiCall){ //callback function named newsApiCall
+
+      const articletest = newsApiCall.articles[0].title
+
+      console.log(articletest)
       res.render('news', {
-          searchDisplay: apiCall
+          newsDisplay: articletest
       });                 //passing parsed symbol into function params for searchResult 
   }, req.query.newsSearch );
 });
