@@ -20,7 +20,7 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-//DASH TICKER #1
+//DASH TICKERS
 var ticker1 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=SPY&apikey=EPNJK585JY2Y1RPW';
 var ticker2 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=QQQ&apikey=EPNJK585JY2Y1RPW';
 var ticker3 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=DIA&apikey=EPNJK585JY2Y1RPW'
