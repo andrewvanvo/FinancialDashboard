@@ -28,7 +28,9 @@
         
 
         <div class = 'row'> 
-            {{newsDisplay}}
+            {{#each newsDisplay}}
+            {{@key}} {{this}}
+            {{/each}}
         </div>
         
     </div>
