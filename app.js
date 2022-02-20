@@ -119,8 +119,23 @@ app.get('/help.html', (req, res) => {
 //search box POST route 
 app.post('/result.html', (req, res) => {
     searchResult(function(apiCall){ //callback function named apiCall
+        let newArray = []
+        let oldArray = apiCall['Global Quote']
+        let symbol = oldArray['01. symbol']
+        let price = oldArray['05. price']
+        let change = oldArray['09. change']
+        let percent = oldArray ['10. change percent']
+        let volume = oldArray['06. volume']
+
+        newArray.push(symbol, price, change, percent, volume)
+        console.log(newArray)
         res.render('result', {
-            searchDisplay: apiCall
+            symbol: symbol,
+            price: price,
+            change: change,
+            percent: percent,
+            volume: volume,
+
         });                 //passing parsed symbol into function params for searchResult 
     }, req.body.symbolSearch );
 });
@@ -136,7 +151,6 @@ app.get('/news.html', (req, res) => {
         let articleLink = newsApiCall.articles[counter].link
         articleArray[articleTitle] = articleLink
         counter += 1
-  
       }
       
       console.log(articleArray)
