@@ -42,7 +42,6 @@ function dashticker(asyncCompleted){ //asycnCompleted is the passed callback fnu
 }
 
 //SEARCH RESULT TICKER
-//Refactored// var symbol = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=EPNJK585JY2Y1RPW'; //hardcoded for MVP, make dynamic later
 function searchResult(asyncCompleted,symbolInputted){ 
     request.get({
         url: 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol='+ symbolInputted +'&apikey=EPNJK585JY2Y1RPW', //passing inputted symbol from search box
