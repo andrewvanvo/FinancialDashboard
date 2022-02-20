@@ -23,14 +23,24 @@
         <br>
         
 
-
-
-        
+        <div class = 'row'>
+            <h3>
+                Company News Articles
+            </h3>
+        </div>
+        <br>
 
         <div class = 'row'> 
-            {{#each newsDisplay}}
-            {{@key}} {{this}}
-            {{/each}}
+            
+            <ul>
+                {{#each newsDisplay}}
+                <li>
+                    <a href={{this}}>{{@key}}</a> 
+                </li>
+                {{/each}}
+            </ul>
+            
+            <br>
         </div>
         
     </div>
