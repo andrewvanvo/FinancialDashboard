@@ -102,8 +102,22 @@ function searchNews(asyncCompleted,symbolInputted){
 ///////////////////////////////
 app.get('/', (req, res) => {
     dashticker(function(apiCall){ //callback function named apiCall
-        res.render('home', {
-            dashDisplay: apiCall
+      let newArray = []
+      let oldArray = apiCall['Global Quote']
+      let symbol = oldArray['01. symbol']
+      let price = oldArray['05. price']
+      let change = oldArray['09. change']
+      let percent = oldArray ['10. change percent']
+      let volume = oldArray['06. volume']
+
+      newArray.push(symbol, price, change, percent, volume)
+      console.log(newArray)
+      res.render('home', {
+          symbol: symbol,
+          price: price,
+          change: change,
+          percent: percent,
+          volume: volume,
         });
     });
 });

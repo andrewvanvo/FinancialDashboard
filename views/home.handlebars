@@ -5,34 +5,16 @@
     <br>
 
     <div class = 'container'>
+        
         <div class = 'row'>
-            <p>Note: Too many refreshes or stock searches in quick succession will result in API rate limiting to kick in.</p>
-        </div>
-        <div class = 'row'>
-            <div class = 'col-4'>
-                {{#each dashDisplay}}
-                    {{#each this}}                       <!--drills one layer deeper into json dict-->
-                    {{@key}}: {{this}}                 <!--iterate through each key (@key) value(this) pair, can also use @index-->
-                    <br>               
-                    {{/each}}   
-                {{/each}}
+            <div class = 'col'>
+                <H3>{{symbol}}</H3>
+                <p><b>Price:</b> ${{price}}</p>
+                <p><b>Change:</b> ${{change}}</p>
+                <p><b>Percent Change:</b> {{percent}}</p>
+                <P><b>Volume:</b> {{volume}}</P>
             </div>
-            <div class = 'col-4'>
-                {{#each dashDisplay}}
-                    {{#each this}}                       
-                    {{@key}}: {{this}}                 
-                    <br>               
-                    {{/each}}   
-                {{/each}}
-            </div>
-            <div class = 'col-4'>
-                {{#each dashDisplay}}
-                    {{#each this}}                      
-                    {{@key}}: {{this}}                 
-                    <br>               
-                    {{/each}}   
-                {{/each}}
-            </div>
+            
         </div>
         <br>
         <br>
