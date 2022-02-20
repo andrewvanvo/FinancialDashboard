@@ -129,12 +129,21 @@ app.post('/result.html', (req, res) => {
 app.get('/news.html', (req, res) => {
  
   searchNews(function(newsApiCall){ //callback function named newsApiCall
+      let articleArray = {}
+      let counter = 0
+      while (counter < 10){
+        let articleTitle = newsApiCall.articles[counter].title
+        let articleLink = newsApiCall.articles[counter].link
+        articleArray[articleTitle] = articleLink
+        counter += 1
+        console.log(articleArray)
+  
+      }
+      
 
-      const articletest = newsApiCall.articles[0].title
-
-      console.log(articletest)
+      console.log(articleArray)
       res.render('news', {
-          newsDisplay: articletest
+          newsDisplay: articleArray
       });                 //passing parsed symbol into function params for searchResult 
   }, req.query.newsSearch );
 });
