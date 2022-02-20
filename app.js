@@ -136,7 +136,6 @@ app.get('/news.html', (req, res) => {
         let articleLink = newsApiCall.articles[counter].link
         articleArray[articleTitle] = articleLink
         counter += 1
-        console.log(articleArray)
   
       }
       
