@@ -79,7 +79,27 @@ function searchDetail(asyncCompleted,symbolInputted){
     });
 }
 
+//Generate News function
+function searchNews(asyncCompleted,symbolInputted){ 
+  request.get({
+      url: 'https://news-microservice-361.herokuapp.com/news/'+ symbolInputted, //passing inputted symbol from search box
+      json: true,
+      headers: {'User-Agent': 'request'}
+    }, (err, res, data) => {
+      if (err) {
+        console.log('Error:', err);
+      } else if (res.statusCode !== 200) {
+        console.log('Status:', res.statusCode);
+      } else {
+        // data is successfully parsed as a JSON object:
+        console.log(data);
+        return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
+      }
+  });
+}
+///////////////////////////////
 //ROUTES
+///////////////////////////////
 app.get('/', (req, res) => {
     dashticker(function(apiCall){ //callback function named apiCall
         res.render('home', {
@@ -106,16 +126,30 @@ app.post('/result.html', (req, res) => {
     }, req.body.symbolSearch );
 });
 
-//Microservice integration needed ////////IN PROGRESS//////////
+//News Microservice integration needed ////////IN PROGRESS//////////
 app.post('/news.html', (req, res) => {
-
-        res.render('news') 
-    });
+  console.log(req.body)
+  searchNews(function(apiCall){ //callback function named apiCall
+      res.render('news', {
+          searchDisplay: apiCall
+      });                 //passing parsed symbol into function params for searchResult 
+  }, req.body.symbolSearch );
+});
 
 
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+//News Microservice base url: https://news-microservice-361.herokuapp.com/
+//To get the news use the above base url/news/<your_news_query_search>
+//Unlimited API calls (1 call/second rate limit) (edited)
+
+//News Microservice base url: https://news-microservice-361.herokuapp.com/ 
+//To get the news use the above base url/news/<your_news_query_search> Unlimited API calls (1 call/second rate limit) (edited)
+
 
 
 
