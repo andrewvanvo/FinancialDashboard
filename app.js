@@ -118,7 +118,6 @@ app.get('/help.html', (req, res) => {
 
 //search box POST route 
 app.post('/result.html', (req, res) => {
-    console.log(req.body)
     searchResult(function(apiCall){ //callback function named apiCall
         res.render('result', {
             searchDisplay: apiCall
@@ -127,13 +126,14 @@ app.post('/result.html', (req, res) => {
 });
 
 //News Microservice integration needed ////////IN PROGRESS//////////
-app.post('/news.html', (req, res) => {
-  console.log(req.body)
+app.get('/news.html', (req, res) => {
+  console.log("Query is " + req.query.newsSearch)
+  
   searchNews(function(apiCall){ //callback function named apiCall
       res.render('news', {
           searchDisplay: apiCall
       });                 //passing parsed symbol into function params for searchResult 
-  }, req.body.symbolSearch );
+  }, req.query.newsSearch );
 });
 
 
