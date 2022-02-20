@@ -22,8 +22,9 @@ app.use(express.urlencoded({
 
 //DASH TICKER #1
 var ticker1 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=SPY&apikey=EPNJK585JY2Y1RPW';
-
-function dashticker(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in '/' GET route
+var ticker2 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=QQQ&apikey=EPNJK585JY2Y1RPW';
+var ticker3 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=DIA&apikey=EPNJK585JY2Y1RPW'
+function dashticker1(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in '/' GET route
     request.get({
         url: ticker1,
         json: true,
@@ -39,6 +40,42 @@ function dashticker(asyncCompleted){ //asycnCompleted is the passed callback fnu
           return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
         }
     });
+}
+
+function dashticker2(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in '/' GET route
+  request.get({
+      url: ticker2,
+      json: true,
+      headers: {'User-Agent': 'request'}
+    }, (err, res, data) => {
+      if (err) {
+        console.log('Error:', err);
+      } else if (res.statusCode !== 200) {
+        console.log('Status:', res.statusCode);
+      } else {
+        // data is successfully parsed as a JSON object:
+        console.log(data);
+        return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
+      }
+  });
+}
+
+function dashticker3(asyncCompleted){ //asycnCompleted is the passed callback fnuction apiCall in '/' GET route
+  request.get({
+      url: ticker3,
+      json: true,
+      headers: {'User-Agent': 'request'}
+    }, (err, res, data) => {
+      if (err) {
+        console.log('Error:', err);
+      } else if (res.statusCode !== 200) {
+        console.log('Status:', res.statusCode);
+      } else {
+        // data is successfully parsed as a JSON object:
+        console.log(data);
+        return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
+      }
+  });
 }
 
 //SEARCH RESULT TICKER
@@ -100,25 +137,54 @@ function searchNews(asyncCompleted,symbolInputted){
 //ROUTES
 ///////////////////////////////
 app.get('/', (req, res) => {
-    dashticker(function(apiCall){ //callback function named apiCall
-      let newArray = []
-      let oldArray = apiCall['Global Quote']
-      let symbol = oldArray['01. symbol']
-      let price = oldArray['05. price']
-      let change = oldArray['09. change']
-      let percent = oldArray ['10. change percent']
-      let volume = oldArray['06. volume']
+    
+    dashticker1(function(apiCall){ //callback function named apiCall
+        let newArray = []
+        let oldArray = apiCall['Global Quote']
+        let symbol = oldArray['01. symbol']
+        let price = oldArray['05. price']
+        let change = oldArray['09. change']
+        let percent = oldArray ['10. change percent']
+        let volume = oldArray['06. volume']
+        //newArray.push(symbol, price, change, percent, volume)
+        dashticker2(function(apiCall){
+          let newArray2 = []
+          let oldArray2 = apiCall['Global Quote']
+          let symbol2 = oldArray2['01. symbol']
+          let price2 = oldArray2['05. price']
+          let change2 = oldArray2['09. change']
+          let percent2 = oldArray2['10. change percent']
+          let volume2 = oldArray2['06. volume']
 
-      newArray.push(symbol, price, change, percent, volume)
-      console.log(newArray)
-      res.render('home', {
-          symbol: symbol,
-          price: price,
-          change: change,
-          percent: percent,
-          volume: volume,
-        });
-    });
+          dashticker3(function(apiCall){
+            let newArray3 = []
+            let oldArray3 = apiCall['Global Quote']
+            let symbol3 = oldArray3['01. symbol']
+            let price3 = oldArray3['05. price']
+            let change3 = oldArray3['09. change']
+            let percent3 = oldArray3['10. change percent']
+            let volume3 = oldArray3['06. volume']
+
+            res.render('home', {
+              symbol: symbol,
+              price: price,
+              change: change,
+              percent: percent,
+              volume: volume,
+              symbol2: symbol2,
+              price2: price2,
+              change2: change2,
+              percent2: percent2,
+              volume2: volume2,
+              symbol3: symbol3,
+              price3: price3,
+              change3: change3,
+              percent3: percent3,
+              volume3: volume3,
+            });
+          });       
+        });  
+      });
 });
 
 app.get('/features.html', (req, res) => {
@@ -139,9 +205,8 @@ app.post('/result.html', (req, res) => {
         let change = oldArray['09. change']
         let percent = oldArray ['10. change percent']
         let volume = oldArray['06. volume']
-
         newArray.push(symbol, price, change, percent, volume)
-        console.log(newArray)
+
         res.render('result', {
             symbol: symbol,
             price: price,
@@ -166,7 +231,6 @@ app.get('/news.html', (req, res) => {
         counter += 1
       }
       
-      console.log(articleArray)
       res.render('news', {
           newsDisplay: articleArray,
           companyName: companyName
@@ -181,12 +245,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-//News Microservice base url: https://news-microservice-361.herokuapp.com/
-//To get the news use the above base url/news/<your_news_query_search>
-//Unlimited API calls (1 call/second rate limit) (edited)
 
-//News Microservice base url: https://news-microservice-361.herokuapp.com/ 
-//To get the news use the above base url/news/<your_news_query_search> Unlimited API calls (1 call/second rate limit) (edited)
 
 
 
