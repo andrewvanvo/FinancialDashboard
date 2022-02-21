@@ -119,13 +119,16 @@
             <br>
 
             <div class = 'row'> 
-                <ul>
-                    {{#each newsDisplay}}
-                    <li>
-                        <a href={{this}} rel="noopener noreferrer" target="_blank">{{@key}}</a> 
-                    </li>
-                    {{/each}}
-                </ul>
+                <div class  = 'col'>
+                    <ul>
+                        {{#each newsDisplay}}
+                        <li>
+                            <a href={{this}} rel="noopener noreferrer" target="_blank">{{@key}}</a> 
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                
                 <br>
             </div>
             <br>
