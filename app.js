@@ -240,26 +240,34 @@ app.post('/result.html', (req, res) => {
             let endDate = resultsArray['end_date']
             let incomeObj = finArray['income_statement']
             let balanceObj = finArray['balance_sheet']
-            /////individual line items///
-
-            let incomeTableDict = {}
+            /////individual line items income statement///
             let usDollar = Intl.NumberFormat('en-US')
+            let incomeTableDict = {}
+        
             for (let key in incomeObj) {
               if (incomeObj.hasOwnProperty(key)) {
                 let newKeyObj = incomeObj[key]
                 let newKey = newKeyObj['label']
                 let newValue = newKeyObj['value']
-    
-                incomeTableDict[newKey] = usDollar.format(newValue)
 
+                incomeTableDict[newKey] = usDollar.format(newValue)
               } 
             }
-            console.log('FINAL TABLE', incomeTableDict)
+            //console.log('INCOME TABLE', incomeTableDict)
 
-            
-            
+            //////// individual line items balance sheet//////
+            let balanceTableDict ={}
 
-            //console.log('TESTING RESULTS ', incomeObj)
+            for (let key in balanceObj) {
+              if (balanceObj.hasOwnProperty(key)) {
+                let newKeyObj = balanceObj[key]
+                let newKey = newKeyObj['label']
+                let newValue = newKeyObj['value']
+
+                balanceTableDict[newKey] = usDollar.format(newValue)
+              } 
+            }
+            console.log('BALANCE TABLE', balanceTableDict)
             
             res.render('result', {
               symbol: symbol,
@@ -272,6 +280,7 @@ app.post('/result.html', (req, res) => {
               endDate: endDate,
               // line items for income statement//
               incomeTableDict: incomeTableDict,
+              balanceTableDict: balanceTableDict,
 
               });  
           
