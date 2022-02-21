@@ -231,7 +231,8 @@ app.post('/result.html', (req, res) => {
           let oldArray = apiCall['results']
           let name = oldArray['name']
           let description = oldArray['description']
-          
+          //let iconObj = oldArray['branding']
+          //let icon = iconObj['icon_url']
           
           companyFinancials(function(apiCall){
             let oldArray = apiCall['results']
@@ -283,6 +284,7 @@ app.post('/result.html', (req, res) => {
                 change: change,
                 percent: percent,
                 volume: volume,
+                //icon: icon,
                 name: name,
                 description: description,
                 endDate: endDate,
