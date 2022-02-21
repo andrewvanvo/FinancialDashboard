@@ -33,7 +33,7 @@ function dashticker1(asyncCompleted){ //asycnCompleted is the passed callback fn
         if (err) {
           console.log('Error:', err);
         } else if (res.statusCode !== 200) {
-          console.log('Status:', res.statusCode);
+          console.log(' Ticker 1 Status:', res.statusCode);
         } else {
           // data is successfully parsed as a JSON object:
           console.log(data);
@@ -51,7 +51,7 @@ function dashticker2(asyncCompleted){ //asycnCompleted is the passed callback fn
       if (err) {
         console.log('Error:', err);
       } else if (res.statusCode !== 200) {
-        console.log('Status:', res.statusCode);
+        console.log('Ticker 2 Status:', res.statusCode);
       } else {
         // data is successfully parsed as a JSON object:
         console.log(data);
@@ -69,7 +69,7 @@ function dashticker3(asyncCompleted){ //asycnCompleted is the passed callback fn
       if (err) {
         console.log('Error:', err);
       } else if (res.statusCode !== 200) {
-        console.log('Status:', res.statusCode);
+        console.log('Ticker 3 Status:', res.statusCode);
       } else {
         // data is successfully parsed as a JSON object:
         console.log(data);
@@ -88,7 +88,7 @@ function searchResult(asyncCompleted,symbolInputted){
         if (err) {
           console.log('Error:', err);
         } else if (res.statusCode !== 200) {
-          console.log('Status:', res.statusCode);
+          console.log(' Search Result Status:', res.statusCode);
         } else {
           // data is successfully parsed as a JSON object:
           console.log(data);
@@ -106,7 +106,7 @@ function companyDetail(asyncCompleted,symbolInputted){
         if (err) {
           console.log('Error:', err);
         } else if (res.statusCode !== 200) {
-          console.log('Status:', res.statusCode);
+          console.log('Company Detail Status:', res.statusCode);
         } else {
           // data is successfully parsed as a JSON object:
           console.log(data);
@@ -125,7 +125,7 @@ function companyFinancials(asyncCompleted,symbolInputted){
       if (err) {
         console.log('Error:', err);
       } else if (res.statusCode !== 200) {
-        console.log('Status:', res.statusCode);
+        console.log('Company Financial Status:', res.statusCode);
       } else {
         // data is successfully parsed as a JSON object:
         console.log(data);
@@ -145,7 +145,7 @@ function searchNews(asyncCompleted,symbolInputted){
       if (err) {
         console.log('Error:', err);
       } else if (res.statusCode !== 200) {
-        console.log('Status:', res.statusCode);
+        console.log('News SearchStatus:', res.statusCode);
       } else {
         // data is successfully parsed as a JSON object:
         console.log(data);
@@ -217,7 +217,9 @@ app.get('/help.html', (req, res) => {
 
 //search box POST route 
 app.post('/result.html', (req, res) => {
-    searchResult(function(apiCall){ //callback function named apiCall
+      let passedSymbol = req.body.symbolSearch
+      let apiSymbol = passedSymbol.toUpperCase()
+      searchResult(function(apiCall){ //callback function named apiCall
         let newArray = []
         let oldArray = apiCall['Global Quote']
         let symbol = oldArray['01. symbol']
@@ -295,10 +297,10 @@ app.post('/result.html', (req, res) => {
                 
                 }); 
               
-              }, req.body.symbolSearch);
-            }, req.body.symbolSearch);
-          }, req.body.symbolSearch);
-    }, req.body.symbolSearch );
+              }, apiSymbol);
+            }, apiSymbol);
+          }, apiSymbol);
+    }, apiSymbol);
 });
 
 //News Microservice integration needed ////////IN PROGRESS//////////
