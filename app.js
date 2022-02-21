@@ -231,15 +231,21 @@ app.post('/result.html', (req, res) => {
           let oldArray = apiCall['results']
           let name = oldArray['name']
           let description = oldArray['description']
-          console.log(name, description)
+          
           
           companyFinancials(function(apiCall){
             let oldArray = apiCall['results']
             let resultsArray = oldArray[0]
             let finArray = resultsArray['financials']
+            let endDate = resultsArray['end_date']
             let incomeObj = finArray['income_statement']
             let balanceObj = finArray['balance_sheet']
-            console.log(incomeObj)
+            /////individual line items////
+            let count = Object.keys(incomeObj).length
+            console.log(count)
+
+
+            //console.log('TESTING RESULTS ', incomeObj)
             
             res.render('result', {
               symbol: symbol,
@@ -249,6 +255,9 @@ app.post('/result.html', (req, res) => {
               volume: volume,
               name: name,
               description: description,
+              endDate: endDate,
+              // line items for income statement//
+              incomeObj: incomeObj
 
               });  
           
