@@ -11,13 +11,20 @@
             <div>
 
             </div>
-            <div class = 'row'>
-                <div class = 'col'>
-                    <H3>{{symbol}}</H3>
-                    <p><b>Price:</b> ${{price}}</p>
-                    <p><b>Change:</b> ${{change}}</p>
-                    <p><b>Percent Change:</b> {{percent}}</p>
-                    <P><b>Volume:</b> {{volume}}</P>
+            <div class = 'd-flex justify-content-center'>
+                <div class = 'col-4'>
+                    <div class ='card'>
+                        <div class ='card-body'>
+                            <div class = 'd-flex justify-content-center'>
+                                <H3>{{symbol}}</H3>
+                            </div>
+                            
+                            <p><b>Price:</b> ${{price}}</p>
+                            <p><b>Change:</b> ${{change}}</p>
+                            <p><b>Percent Change:</b> {{percent}}</p>
+                            <P><b>Volume:</b> {{volume}}</P>
+                        </div>
+                    </div>
                 </div>
             </div>
         <br>
