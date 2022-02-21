@@ -240,10 +240,24 @@ app.post('/result.html', (req, res) => {
             let endDate = resultsArray['end_date']
             let incomeObj = finArray['income_statement']
             let balanceObj = finArray['balance_sheet']
-            /////individual line items////
-            let count = Object.keys(incomeObj).length
-            console.log(count)
+            /////individual line items///
 
+            let incomeTableDict = {}
+            let usDollar = Intl.NumberFormat('en-US')
+            for (let key in incomeObj) {
+              if (incomeObj.hasOwnProperty(key)) {
+                let newKeyObj = incomeObj[key]
+                let newKey = newKeyObj['label']
+                let newValue = newKeyObj['value']
+    
+                incomeTableDict[newKey] = usDollar.format(newValue)
+
+              } 
+            }
+            console.log('FINAL TABLE', incomeTableDict)
+
+            
+            
 
             //console.log('TESTING RESULTS ', incomeObj)
             
@@ -257,7 +271,7 @@ app.post('/result.html', (req, res) => {
               description: description,
               endDate: endDate,
               // line items for income statement//
-              incomeObj: incomeObj
+              incomeTableDict: incomeTableDict,
 
               });  
           

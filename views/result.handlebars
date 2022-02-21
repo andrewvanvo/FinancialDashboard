@@ -70,12 +70,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        
+                            {{#each incomeTableDict}}
                                 <tr>
-                                  <th scope="row">1</th>
-                                  <td>Mark</td>
+                                  <td scope="row">{{@key}}</td>
+                                  <td>${{this}}</td>
                                 </tr>
-                            
+                            {{/each}}
                         
                       </tbody>
                     </table>
