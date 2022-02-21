@@ -1,2 +1,5 @@
 AlphaVantage
 EPNJK585JY2Y1RPW
+
+polygon.io
+brp6_cBTpfmTWr8W_IjOQ5wairpYpAW4
