@@ -116,9 +116,9 @@ function companyDetail(asyncCompleted,symbolInputted){
 }
 
 //SEARCH RESULT COMPANY FINANCIALS
-function incomeStatement(asyncCompleted,symbolInputted){ 
+function companyFinancials(asyncCompleted,symbolInputted){ 
   request.get({
-      url: 'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol='+ symbolInputted +'&apikey=EPNJK585JY2Y1RPW', //passing inputted symbol from search box
+      url: 'https://api.polygon.io/vX/reference/financials?ticker='+ symbolInputted +'&apiKey=brp6_cBTpfmTWr8W_IjOQ5wairpYpAW4', //passing inputted symbol from search box
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -134,23 +134,6 @@ function incomeStatement(asyncCompleted,symbolInputted){
   });
 }
 
-function balanceSheet(asyncCompleted,symbolInputted){ 
-  request.get({
-      url: 'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol='+ symbolInputted +'&apikey=EPNJK585JY2Y1RPW', //passing inputted symbol from search box
-      json: true,
-      headers: {'User-Agent': 'request'}
-    }, (err, res, data) => {
-      if (err) {
-        console.log('Error:', err);
-      } else if (res.statusCode !== 200) {
-        console.log('Status:', res.statusCode);
-      } else {
-        // data is successfully parsed as a JSON object:
-        console.log(data);
-        return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
-      }
-  });
-}
 
 //Generate News function
 function searchNews(asyncCompleted,symbolInputted){ 
@@ -249,20 +232,28 @@ app.post('/result.html', (req, res) => {
           let name = oldArray['name']
           let description = oldArray['description']
           console.log(name, description)
-          //incomeStatement(function(apiCall){
-          //    console.log(apiCall)
-          //  }, req.body.symbolSearch)
-          //}, req.body.symbolSearch)
-          }, req.body.symbolSearch)
           
-          res.render('result', {
-              //symbol: symbol,
-              //price: price,
-              //change: change,
-              //percent: percent,
-              //volume: volume,
+          companyFinancials(function(apiCall){
+            let oldArray = apiCall['results']
+            let resultsArray = oldArray[0]
+            let finArray = resultsArray['financials']
+            let incomeObj = finArray['income_statement']
+            let balanceObj = finArray['balance_sheet']
+            console.log(incomeObj)
+            
+            res.render('result', {
+              symbol: symbol,
+              price: price,
+              change: change,
+              percent: percent,
+              volume: volume,
+              name: name,
+              description: description,
 
-          });                 //passing parsed symbol into function params for searchResult 
+              });  
+          
+            }, req.body.symbolSearch)
+          }, req.body.symbolSearch)
     }, req.body.symbolSearch );
 });
 
