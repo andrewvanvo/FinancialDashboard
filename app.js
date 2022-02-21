@@ -267,59 +267,61 @@ app.post('/result.html', (req, res) => {
                 balanceTableDict[newKey] = usDollar.format(newValue)
               } 
             }
-            console.log('BALANCE TABLE', balanceTableDict)
             
-            res.render('result', {
-              symbol: symbol,
-              price: price,
-              change: change,
-              percent: percent,
-              volume: volume,
-              name: name,
-              description: description,
-              endDate: endDate,
-              // line items for income statement//
-              incomeTableDict: incomeTableDict,
-              balanceTableDict: balanceTableDict,
+            searchNews(function(newsApiCall){ //callback function named newsApiCall
+              let articleArray = {}
+              let counter = 0
+              while (counter < 10){
+                let articleTitle = newsApiCall.articles[counter].title
+                let articleLink = newsApiCall.articles[counter].link
+                articleArray[articleTitle] = articleLink
+                counter += 1}
 
-              });  
-          
-            }, req.body.symbolSearch)
-          }, req.body.symbolSearch)
+              res.render('result', {
+                symbol: symbol,
+                price: price,
+                change: change,
+                percent: percent,
+                volume: volume,
+                name: name,
+                description: description,
+                endDate: endDate,
+                // line items for income statement//
+                incomeTableDict: incomeTableDict,
+                balanceTableDict: balanceTableDict,
+                newsDisplay: articleArray,
+                
+                }); 
+              
+              }, req.body.symbolSearch);
+            }, req.body.symbolSearch);
+          }, req.body.symbolSearch);
     }, req.body.symbolSearch );
 });
 
 //News Microservice integration needed ////////IN PROGRESS//////////
-app.get('/news.html', (req, res) => {
-  let companyName = req.query.newsSearch
-  searchNews(function(newsApiCall){ //callback function named newsApiCall
-      let articleArray = {}
-      let counter = 0
-      while (counter < 10){
-        let articleTitle = newsApiCall.articles[counter].title
-        let articleLink = newsApiCall.articles[counter].link
-        articleArray[articleTitle] = articleLink
-        counter += 1
-      }
-      
-      res.render('news', {
-          newsDisplay: articleArray,
-          companyName: companyName
-      });                 //passing parsed symbol into function params for searchResult 
-  }, req.query.newsSearch );
-});
-
+//app.get('/news.html', (req, res) => {
+//  let companyName = req.query.newsSearch
+//  searchNews(function(newsApiCall){ //callback function named newsApiCall
+//      let articleArray = {}
+//      let counter = 0
+//      while (counter < 10){
+//        let articleTitle = newsApiCall.articles[counter].title
+//        let articleLink = newsApiCall.articles[counter].link
+//        articleArray[articleTitle] = articleLink
+//        counter += 1
+//      }
+//      
+//      res.render('news', {
+//          newsDisplay: articleArray,
+//          companyName: companyName
+//      });                 //passing parsed symbol into function params for searchResult 
+//  }, req.query.newsSearch );
+//});
 
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-
-
-
-
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}....`)
