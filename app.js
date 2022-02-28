@@ -149,7 +149,7 @@ function searchNews(asyncCompleted,symbolInputted){
       } else {
         // data is successfully parsed as a JSON object:
         console.log(data);
-        return asyncCompleted(data);          //returns the result of the response body into dashTicker function which then returns response body
+        return asyncCompleted(data);          
       }
   });
 }
