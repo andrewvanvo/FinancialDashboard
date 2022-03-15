@@ -303,25 +303,6 @@ app.post('/result.html', (req, res) => {
     }, apiSymbol);
 });
 
-//News Microservice integration needed ////////IN PROGRESS//////////
-//app.get('/news.html', (req, res) => {
-//  let companyName = req.query.newsSearch
-//  searchNews(function(newsApiCall){ //callback function named newsApiCall
-//      let articleArray = {}
-//      let counter = 0
-//      while (counter < 10){
-//        let articleTitle = newsApiCall.articles[counter].title
-//        let articleLink = newsApiCall.articles[counter].link
-//        articleArray[articleTitle] = articleLink
-//        counter += 1
-//      }
-//      
-//      res.render('news', {
-//          newsDisplay: articleArray,
-//          companyName: companyName
-//      });                 //passing parsed symbol into function params for searchResult 
-//  }, req.query.newsSearch );
-//});
 
 
 //static files
